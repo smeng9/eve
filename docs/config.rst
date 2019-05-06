@@ -694,8 +694,28 @@ uppercase.
                                     the ``OPLOG_ENDPOINT``. Defaults to
                                     ``False``.
 
+``SCHEMA_NAME``                     This is the name of the database collection
+                                    where the schema is stored. Defaults
+                                    to ``None``. When Eve initialize for the first time,
+                                    it will copy the whole DOMAIN in to this collection.
+
+``SCHEMA_METHODS``                  Defaults to [GET]. Supports POST, DELETE. This
+                                    will give user more freedom to modify API. This requires ``SCHEMA_NAME`` is not None.
+
+``SCHEMA_ITEM_METHODS``             ``SCHEMA_ITEM_METHODS`` supports PUT, PATCH, DELETE. Defaults to [GET].
+
+``SCHEMA_WRITE_ROLES``              ``SCHEMA_ITEM_READ_ROLE`` is the same as Resource Role, each individual resource can overrite this field.
+
+``SCHEMA_ITEM_WRITE_ROLES``              ``SCHEMA_ITEM_WRITE_ROLE``
+
 ``SCHEMA_ENDPOINT``                 Name of the :ref:`schema_endpoint`. Defaults
                                     to ``None``.
+
+``SCHEMA_RETURN_RESOURCE_DEFINITIONS`` When enabled, the ``resource definitions``
+                                    will be included in the payload returned by
+                                    ``SCHEMA_ENDPOINT``. Schema will be embedded in
+                                    the definition of each resource. Defaults to
+                                    ``False``.
 
 ``HEADER_TOTAL_COUNT``              Custom header containing total count of
                                     items in response payloads for collection
