@@ -80,8 +80,13 @@ class TestPut(TestBase):
         response, status = self.get("products?max_results=1")
         product = response["_items"][0]
         headers = [("If-Match", product[ETAG])]
+        updated_product = {
+            "sku": product["sku"],
+            "title": product["title"],
+            "parent_product": product["parent_product"],
+        }
         r, status = self.put(
-            "products/%s" % product["sku"], data=product, headers=headers
+            "products/%s" % product["sku"], data=updated_product, headers=headers
         )
         self.assert200(status)
 
