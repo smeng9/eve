@@ -127,7 +127,10 @@ class Validator(Validator):
             # exclude current document
             if self.document_id:
                 id_field = resource_config["id_field"]
-                query[id_field] = {"$ne": self.document_id}
+                if id_field in query:
+                    query[id_field] = {"$ne": self.document_id, "$eq": query[id_field]}
+                else:
+                    query[id_field] = {"$ne": self.document_id}
 
             # we perform the check on the native mongo driver (and not on
             # app.data.find_one()) because in this case we don't want the usual

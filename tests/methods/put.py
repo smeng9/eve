@@ -75,6 +75,16 @@ class TestPut(TestBase):
             r, {"ref": "value '%s' is not unique" % self.alt_ref}
         )
 
+    def test_unique_idfield(self):
+        self.domain["products"]["schema"]["sku"]["unique"] = True
+        response, status = self.get("products?max_results=1")
+        product = response["_items"][0]
+        headers = [("If-Match", product[ETAG])]
+        r, status = self.put(
+            "products/%s" % product["sku"], data=product, headers=headers
+        )
+        self.assert200(status)
+
     def test_allow_unknown(self):
         changes = {"unknown": "unknown"}
         r, status = self.put(
